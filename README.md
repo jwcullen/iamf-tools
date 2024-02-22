@@ -63,7 +63,7 @@ If this example is successful the encoder will produce an output
 
 ### Test suite
 
-[iamf/cli/testdata](iamf/cli/testdata) cover a wide variety of IAMF feature. These samples
+[iamf/cli/testdata](iamf/cli/testdata) covers a wide variety of IAMF feature. These samples
 can be used as encoder input. After encoding the resultant `.iamf` files can be
 used to assist in testing or debugging an IAMF-compliant decoder.
 
