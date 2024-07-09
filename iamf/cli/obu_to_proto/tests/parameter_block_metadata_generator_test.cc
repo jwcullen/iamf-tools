@@ -40,7 +40,7 @@ constexpr int16_t kControlPointRelativeTime = 68;
 using enum MixGainParameterData::AnimationType;
 using enum iamf_tools_cli_proto::AnimationType;
 
-const auto kStepMixGainParamData =
+constexpr auto kStepMixGainParamData =
     MixGainParameterData{.animation_type = kAnimateStep,
                          .param_data = AnimationStepInt16{kStartPointValue}};
 
