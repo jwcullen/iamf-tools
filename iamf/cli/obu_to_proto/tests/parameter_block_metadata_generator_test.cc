@@ -40,13 +40,13 @@ constexpr int16_t kControlPointRelativeTime = 68;
 using enum MixGainParameterData::AnimationType;
 using enum iamf_tools_cli_proto::AnimationType;
 
-constexpr auto kStepMixGainParamData =
+const auto kStepMixGainParamData =
     MixGainParameterData{.animation_type = kAnimateStep,
                          .param_data = AnimationStepInt16{kStartPointValue}};
 
 TEST(GenerateParameterSubblockMetadata,
      GetsSubblockMetadataForStepMixGainParameterSubblock) {
-  constexpr ParameterSubblock kStepMixGainSubblock{
+  const ParameterSubblock kStepMixGainSubblock{
       .subblock_duration = kSubblockDuration,
       .param_data = kStepMixGainParamData};
 
@@ -69,7 +69,7 @@ TEST(GenerateParameterSubblockMetadata,
 
 TEST(GenerateParameterSubblockMetadata,
      GetsSubblockMetadataForLinearMixGainParameterSubblock) {
-  constexpr ParameterSubblock kLinearMixGainSubblock{
+  const ParameterSubblock kLinearMixGainSubblock{
       .subblock_duration = kSubblockDuration,
       .param_data =
           MixGainParameterData{.animation_type = kAnimateLinear,
@@ -94,7 +94,7 @@ TEST(GenerateParameterSubblockMetadata,
 
 TEST(GenerateParameterSubblockMetadata,
      GetsSubblockMetadataForBezierMixGainParameterSubblock) {
-  constexpr ParameterSubblock kBezierMixGainSubblock{
+  const ParameterSubblock kBezierMixGainSubblock{
       .subblock_duration = kSubblockDuration,
       .param_data = MixGainParameterData{
           .animation_type = kAnimateBezier,
@@ -123,15 +123,15 @@ TEST(GenerateParameterSubblockMetadata,
 
 TEST(GenerateParameterSubblockMetadata,
      ReturnsErrorForInconsistentAnimationType) {
-  constexpr ParameterSubblock kInconsistentStepSubblock = {
+  const ParameterSubblock kInconsistentStepSubblock = {
       .subblock_duration = kSubblockDuration,
       .param_data = MixGainParameterData{.animation_type = kAnimateLinear,
                                          .param_data = AnimationStepInt16{}}};
-  constexpr ParameterSubblock kInconsistentLinearSubblock = {
+  const ParameterSubblock kInconsistentLinearSubblock = {
       .subblock_duration = kSubblockDuration,
       .param_data = MixGainParameterData{.animation_type = kAnimateStep,
                                          .param_data = AnimationLinearInt16{}}};
-  constexpr ParameterSubblock kInconsistentBezierSubblock = {
+  const ParameterSubblock kInconsistentBezierSubblock = {
       .subblock_duration = kSubblockDuration,
       .param_data = MixGainParameterData{.animation_type = kAnimateStep,
                                          .param_data = AnimationBezierInt16{}}};
@@ -239,7 +239,7 @@ TEST(GenerateParameterSubblockMetadata, GenerateReconGainParameterSubblocks) {
 }
 
 TEST(GenerateParameterSubblockMetadata, SetsDuration) {
-  constexpr ParameterSubblock kSubblock{.subblock_duration = kSubblockDuration,
+  const ParameterSubblock kSubblock{.subblock_duration = kSubblockDuration,
                                         .param_data = kStepMixGainParamData};
 
   const auto subblock_metadata =
