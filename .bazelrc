@@ -18,5 +18,7 @@ build:macos --linkopt=-lm
 build:macos --cxxopt=-std=c++20
 build:macos --cxxopt=-Wno-sign-compare
 
+build:windows --bazelrc=.windows.bazelrc
+test:windows --bazelrc=.windows.bazelrc
 build:windows --cxxopt=/std:c++20
 startup --windows_enable_symlinks
