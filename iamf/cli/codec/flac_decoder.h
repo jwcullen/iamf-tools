@@ -45,6 +45,18 @@ class FlacDecoder : public DecoderBase {
    */
   absl::Status Initialize() override;
 
+  /*!\brief Gets the number of samples per channel.
+   *
+   * \return Number of samples per channel.
+   */
+  int GetNumSamplesPerChannel() { return num_samples_per_channel_; }
+
+  /*!\brief Finalizes the underlying libflac decoder.
+   *
+   * \return `absl::OkStatus()` on success. A specific status on failure.
+   */
+  absl::Status Finalize();
+
   /*!\brief Decodes a FLAC audio frame.
    *
    * \param encoded_frame Frame to decode.

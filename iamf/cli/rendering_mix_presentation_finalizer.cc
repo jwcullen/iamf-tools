@@ -38,7 +38,6 @@
 #include "iamf/cli/demixing_module.h"
 #include "iamf/cli/loudness_calculator_base.h"
 #include "iamf/cli/loudness_calculator_factory_base.h"
-#include "iamf/cli/mix_presentation_finalizer.h"
 #include "iamf/cli/parameter_block_with_data.h"
 #include "iamf/cli/proto/mix_presentation.pb.h"
 #include "iamf/cli/proto/test_vector_metadata.pb.h"
@@ -110,6 +109,7 @@ struct AudioElementRenderingMetadata {
 absl::Status InitializeRenderingMetadata(
     const RendererFactoryBase& renderer_factory,
     const std::vector<const AudioElementWithData*>& audio_elements_in_sub_mix,
+    const std::vector<SubMixAudioElement>& sub_mix_audio_elements,
     const Layout& loudness_layout, const uint32_t common_sample_rate,
     const uint8_t common_bit_depth,
     std::vector<AudioElementRenderingMetadata>& rendering_metadata_array) {
@@ -125,7 +125,8 @@ absl::Status InitializeRenderingMetadata(
         sub_mix_audio_element.obu.audio_substream_ids_,
         sub_mix_audio_element.substream_id_to_labels,
         rendering_metadata.audio_element->GetAudioElementType(),
-        sub_mix_audio_element.obu.config_, loudness_layout);
+        sub_mix_audio_element.obu.config_,
+        sub_mix_audio_elements[i].rendering_config, loudness_layout);
 
     if (rendering_metadata.renderer == nullptr) {
       return absl::UnknownError("Unable to create renderer.");
@@ -472,7 +473,8 @@ absl::Status ValidateUserLoudness(const LoudnessInfo& user_loudness,
 absl::Status FillLoudnessInfo(
     bool validate_loudness, const RendererFactoryBase& renderer_factory,
     const LoudnessCalculatorFactoryBase* loudness_calculator_factory,
-    const MixPresentationFinalizerBase::WavWriterFactory& wav_writer_factory,
+    const RenderingMixPresentationFinalizer::WavWriterFactory&
+        wav_writer_factory,
     const std::filesystem::path& file_path_prefix,
     const absl::flat_hash_map<uint32_t, AudioElementWithData>& audio_elements,
     const IdTimeLabeledFrameMap& id_to_time_to_labeled_frame,
@@ -525,8 +527,9 @@ absl::Status FillLoudnessInfo(
 
       std::vector<AudioElementRenderingMetadata> rendering_metadata_array;
       can_render_status.Update(InitializeRenderingMetadata(
-          renderer_factory, audio_elements_in_sub_mix, layout.loudness_layout,
-          common_sample_rate, common_bit_depth, rendering_metadata_array));
+          renderer_factory, audio_elements_in_sub_mix, sub_mix.audio_elements,
+          layout.loudness_layout, common_sample_rate, common_bit_depth,
+          rendering_metadata_array));
 
       if (!can_render_status.ok()) {
         LOG(WARNING) << "Rendering is not supported yet for this layout: "
@@ -602,8 +605,11 @@ absl::Status RenderingMixPresentationFinalizer::Finalize(
     const std::list<ParameterBlockWithData>& parameter_blocks,
     const WavWriterFactory& wav_writer_factory,
     std::list<MixPresentationObu>& mix_presentation_obus) {
-  if (!renderer_factory_) {
-    // Ok. Can't render.
+  if (renderer_factory_ == nullptr) {
+    // Ok. When rendering is disabled, there is nothing to finalize.
+    for (const auto& mix_presentation_obu : mix_presentation_obus) {
+      mix_presentation_obu.PrintObu();
+    }
     return absl::OkStatus();
   }
   // Find the minimum start timestamp and maximum end timestamp.
@@ -631,7 +637,7 @@ absl::Status RenderingMixPresentationFinalizer::Finalize(
     i++;
   }
 
-  // Examine Mix Presentation OBUs.
+  // Examine finalized Mix Presentation OBUs.
   for (const auto& mix_presentation_obu : mix_presentation_obus) {
     mix_presentation_obu.PrintObu();
   }
