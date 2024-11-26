@@ -754,8 +754,8 @@ absl::Status GenerateRenderingMetadataForSubmixes(  // NOLINT
 
     submix_rendering_metadata.audio_elements_in_sub_mix =
         sub_mix.audio_elements;
-    submix_rendering_metadata.mix_gain = sub_mix.output_mix_gain;
-
+    submix_rendering_metadata.mix_gain =
+        std::make_unique<MixGainParamDefinition>(sub_mix.output_mix_gain);
     // Data common to all audio elements and layouts.
     bool requires_resampling;
     RETURN_IF_NOT_OK(GetCommonSampleRateAndBitDepthFromAudioElementIds(
@@ -849,7 +849,7 @@ absl::Status RenderWriteAndCalculateLoudnessForTemporalUnit(
       RETURN_IF_NOT_OK(RenderAllFramesForLayout(
           layout_rendering_metadata.num_channels,
           submix_rendering_metadata.audio_elements_in_sub_mix,
-          submix_rendering_metadata.mix_gain, id_to_labeled_frame,
+          *submix_rendering_metadata.mix_gain, id_to_labeled_frame,
           layout_rendering_metadata.audio_element_rendering_metadata,
           parameter_blocks_start, parameter_blocks_end,
           submix_rendering_metadata.common_sample_rate, rendered_samples));
@@ -885,7 +885,7 @@ absl::Status RenderWriteAndCalculateLoudnessForTemporalUnit(
       RETURN_IF_NOT_OK(RenderAllFramesForLayout(
           layout_rendering_metadata.num_channels,
           submix_rendering_metadata.audio_elements_in_sub_mix,
-          submix_rendering_metadata.mix_gain, id_to_time_to_labeled_frame,
+          *submix_rendering_metadata.mix_gain, id_to_time_to_labeled_frame,
           layout_rendering_metadata.audio_element_rendering_metadata,
           parameter_blocks, submix_rendering_metadata.common_sample_rate,
           layout_rendering_metadata.start_timestamp, rendered_samples));
