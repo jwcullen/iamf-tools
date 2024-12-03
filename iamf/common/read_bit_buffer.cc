@@ -281,7 +281,7 @@ absl::Status ReadBitBuffer::Seek(const int64_t position) {
   const int64_t starting_byte = position / 8;
   buffer_bit_offset_ = position % 8;
   const int64_t ending_byte =
-      std::min((starting_byte + bit_buffer_.capacity()), source_.size());
+      std::min((starting_byte + bit_buffer_.capacity()), static_cast<int64_t>(source_.size()));
 
   bit_buffer_.resize(ending_byte - starting_byte);
   std::copy(source_.begin() + starting_byte, source_.begin() + ending_byte,
