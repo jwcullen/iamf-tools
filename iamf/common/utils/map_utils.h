@@ -109,7 +109,7 @@ absl::Status SetFromMap(const absl::flat_hash_map<Key, Value>& map,
     return result.status();
   }
 
-  if constexpr (std::is_same_v<SetterReturnType, void>) {
+  if constexpr (std::is_void_v<SetterReturnType>) {
     setter(*result);
     return absl::OkStatus();
   } else if constexpr (std::is_same_v<SetterReturnType, absl::Status>) {
