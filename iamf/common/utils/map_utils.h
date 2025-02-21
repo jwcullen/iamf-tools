@@ -12,6 +12,8 @@
 #ifndef COMMON_UTILS_MAP_UTILS_H_
 #define COMMON_UTILS_MAP_UTILS_H_
 
+#include <type_traits>
+
 #include "absl/base/no_destructor.h"
 #include "absl/container/flat_hash_map.h"
 #include "absl/functional/function_ref.h"
@@ -109,7 +111,7 @@ absl::Status SetFromMap(const absl::flat_hash_map<Key, Value>& map,
     return result.status();
   }
 
-  if constexpr (std::is_void_v<SetterReturnType>) {
+  if constexpr (std::is_same_v<SetterReturnType, void>) {
     setter(*result);
     return absl::OkStatus();
   } else if constexpr (std::is_same_v<SetterReturnType, absl::Status>) {
