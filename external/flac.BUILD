@@ -69,7 +69,6 @@ flac_local_defines = [
 # Defines which need to propagate to all downstream users.
 flac_defines = select({
     "@platforms//os:windows": ["FLAC__NO_DLL"],
-    "@platforms//os:osx:" : ["HAVE_FSEEKO"],
     "//conditions:default": [],
 })
 
