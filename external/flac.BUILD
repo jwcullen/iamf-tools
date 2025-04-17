@@ -51,6 +51,11 @@ flac_copts = [
     "-Iexternal/flac/include",
 ]
 
+flac_platform_defines = select({
+    "@platforms//os:osx" : ["HAVE_FSEEKO"],
+    "//conditions:default": [],
+})
+
 flac_local_defines = [
     "FLAC__HAS_OGG=0",
     "FLAC__USE_VISIBILITY_ATTR",
@@ -59,7 +64,7 @@ flac_local_defines = [
     "HAVE_LROUND",
     "NDEBUG",
     "_FORTIFY_SOURCE=2",
-]
+] + flac_platform_local_defines
 
 # Defines which need to propagate to all downstream users.
 flac_defines = select({
