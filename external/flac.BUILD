@@ -55,7 +55,7 @@ flac_copts = [
 flac_local_defines = [
     "FLAC__HAS_OGG=0",
     "FLAC__USE_VISIBILITY_ATTR",
-    "PACKAGE_VERSION=\\\"1.4.3\\\"",
+    "PACKAGE_VERSION=\\\"1.5.0\\\"",
     "HAVE_STDINT_H",
     "HAVE_LROUND",
     "NDEBUG",
