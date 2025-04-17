@@ -51,7 +51,7 @@ flac_copts = [
     "-Iexternal/flac/include",
 ]
 
-flac_platform_defines = select({
+flac_platform_local_defines = select({
     "@platforms//os:osx" : ["HAVE_FSEEKO"],
     "//conditions:default": [],
 })
