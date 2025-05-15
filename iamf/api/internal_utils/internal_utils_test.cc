@@ -105,7 +105,7 @@ TEST(SetUpAfterDescriptors, FailsWithInvalidWavWriter) {
   std::unique_ptr<WavWriter> wav_writer;
   std::vector<uint8_t> reusable_sample_buffer;
 
-  auto iamf_status = SetupAfterDescriptors(*decoder, "non_existent_path",
+  auto iamf_status = SetupAfterDescriptors(*decoder, "",
                                            wav_writer, reusable_sample_buffer);
   EXPECT_FALSE(iamf_status.ok());
 }
