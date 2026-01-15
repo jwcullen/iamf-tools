@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "absl/types/span.h"
+#include "absl/status/status_matchers.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "iamf/common/q_format_or_floating_point.h"
