@@ -124,6 +124,7 @@ cc_test(
         "//iamf/common:write_bit_buffer",
         "//iamf/obu:element_gain_offset_config",
         "@abseil-cpp//absl/types:span",
+        "@abseil-cpp//absl/status:status_matchers",
         "@com_google_googletest//:gtest_main",
     ],
 )
