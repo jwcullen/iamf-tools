@@ -95,7 +95,7 @@ def main(_) -> None:
 
   for textproto_file in textproto_files:
     user_metadata = user_metadata_pb2.UserMetadata()
-    with open(textproto_file, 'rb') as f:
+    with open(textproto_file, 'r', encoding='utf-8') as f:
       text_format.Parse(f.read(), user_metadata)
 
     if user_metadata.test_vector_metadata.is_valid:
