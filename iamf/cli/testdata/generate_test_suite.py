@@ -95,8 +95,8 @@ def main(_) -> None:
 
   for textproto_file in textproto_files:
     user_metadata = user_metadata_pb2.UserMetadata()
-    with open(textproto_file, 'rb') as f:
-      text_format.Parse(f.read().decode('unicode_escape'), user_metadata)
+    with open(textproto_file, 'r') as f:
+      text_format.Parse(f.read(), user_metadata)
 
     if user_metadata.test_vector_metadata.is_valid:
       _run_encoder(textproto_file, user_metadata)
