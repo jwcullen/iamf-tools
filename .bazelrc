@@ -12,10 +12,10 @@ build --experimental_cc_static_library
 
 # To use the pre-built protoc (https://protobuf.dev/news/2026-01-16/).
 build --incompatible_enable_proto_toolchain_resolution
-build --@com_google_protobuf//bazel/flags:prefer_prebuilt_protoc
+build --@protobuf//bazel/flags:prefer_prebuilt_protoc
 
 # Configs for all Android CPUs.
-common:android_arm64 --extra_toolchains=@androidndk//:all --platforms=//:android_arm64 --platform_suffix=android_arm64
+common:android_arm64 --extra_toolchai.s=@androidndk//:all --platforms=//:android_arm64 --platform_suffiprotobufd_arm64
 common:android_armv7 --extra_toolchains=@androidndk//:all --platforms=//:android_armv7 --platform_suffix=android_armv7
 common:android_x86_32 --extra_toolchains=@androidndk//:all --platforms=//:android_x86_32 --platform_suffix=android_x86_32
 common:android_x86_64 --extra_toolchains=@androidndk//:all --platforms=//:android_x86_64 --platform_suffix=android_x86_64
