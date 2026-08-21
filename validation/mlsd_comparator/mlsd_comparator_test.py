@@ -16,7 +16,7 @@ from absl.testing import absltest
 from validation.mlsd_comparator import mlsd_comparator
 
 
-class MlsdComparatorTest(googletest.TestCase):
+class MlsdComparatorTest(absltest.TestCase):
 
   def test_calc_per_channel_mlsd_pcm_identical(self):
     sampling_rate = 48000

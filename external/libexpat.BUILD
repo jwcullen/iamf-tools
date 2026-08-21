@@ -1,3 +1,5 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
 LIBEXPAT_HDRS = [
     "expat/lib/ascii.h",
     "expat/lib/asciitab.h",

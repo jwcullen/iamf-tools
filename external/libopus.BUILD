@@ -1,4 +1,6 @@
 
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
 INTERNAL_HDRS = glob([
     "src/**/*.h",
     "celt/**/*.h",
