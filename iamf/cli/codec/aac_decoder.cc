@@ -20,12 +20,6 @@
 
 #include "absl/status/statusor.h"
 #include "iamf/obu/substream_channel_count.h"
-
-// This symbol conflicts with `aacenc_lib.h` and `aacdecoder_lib.h`.
-#ifdef IS_LITTLE_ENDIAN
-#undef IS_LITTLE_ENDIAN
-#endif
-
 #include "absl/functional/any_invocable.h"
 #include "absl/log/absl_check.h"
 #include "absl/log/absl_log.h"
