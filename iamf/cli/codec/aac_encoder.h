@@ -15,12 +15,6 @@
 #include <cstdint>
 #include <memory>
 #include <vector>
-
-// This symbol conflicts with a macro in fdk_aac.
-#ifdef IS_LITTLE_ENDIAN
-#undef IS_LITTLE_ENDIAN
-#endif
-
 #include "absl/status/status.h"
 #include "iamf/cli/audio_frame_with_data.h"
 #include "iamf/cli/codec/encoder_base.h"
