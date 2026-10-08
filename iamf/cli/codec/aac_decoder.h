@@ -22,11 +22,6 @@
 #include "iamf/obu/decoder_config/aac_decoder_config.h"
 #include "iamf/obu/substream_channel_count.h"
 
-// This symbol conflicts with a macro in fdk_aac.
-#ifdef IS_LITTLE_ENDIAN
-#undef IS_LITTLE_ENDIAN
-#endif
-
 #include "absl/status/status.h"
 #include "iamf/cli/codec/decoder_base.h"
 #include "libAACdec/include/aacdecoder_lib.h"
